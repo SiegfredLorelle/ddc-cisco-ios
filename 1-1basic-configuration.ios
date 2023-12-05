@@ -1,0 +1,19 @@
+!1-1 Basic Config
+enable
+configure terminal
+hostname RanetA
+ena secret ranetenablepass
+line console 0
+password ranetconsolepass
+login
+line vty 0 15
+password ranettelnetpass
+login
+exit
+interface Fastethernet 0/0
+ip address 10.0.0.1 255.255.255.252
+no shutdown
+interface Fastethernet 0/1
+ip address 192.168.0.254 255.255.255.192
+no shutdown
+do write

@@ -1,0 +1,164 @@
+!SET UP BOSTON IP
+ena 
+conf t
+hostname Boston
+banner motd # Authorized access only! #
+line console 0
+password cisco
+login
+line vty 0 15
+password cisco
+login 
+exit
+enable secret class
+service password-encryption
+int Fa0/0
+ip address 172.31.10.1 255.255.255.0
+no shutdown
+int Serial 0/0/0
+ip address 172.31.20.1 255.255.255.252
+no shutdown
+do write
+
+
+!SET UP BUFFALO IP
+ena 
+conf t
+hostname Buffalo
+banner motd # Authorized access only! #
+line console 0
+password cisco
+login
+line vty 0 15
+password cisco
+login 
+exit
+enable secret class
+service password-encryption
+int Fa0/0
+ip address 172.31.30.1 255.255.255.0
+no shutdown
+int Serial 0/0/1
+ip address 172.31.20.2 255.255.255.252
+no shutdown
+int Serial 0/0/0
+ip address 172.31.40.1 255.255.255.252
+no shutdown
+do write
+
+
+!SET UP BANGOR IP
+ena 
+conf t
+hostname Bangor
+banner motd # Authorized access only! #
+line console 0
+password cisco
+login
+line vty 0 15
+password cisco
+login 
+exit
+enable secret class
+service password-encryption
+int Fa0/0
+ip address 172.31.50.1 255.255.255.0
+no shutdown
+int Serial 0/0/1
+ip address 172.31.40.2 255.255.255.252
+no shutdown
+do write
+
+
+!DYNAMIC ROUTE BOSTON
+router rip
+version 2
+network 172.31.20.0
+network 172.31.10.0
+no auto-sum
+do write
+
+
+!DYNAMIC ROUTE BUFFALO
+router rip
+version 2
+network 172.31.20.0
+network 172.31.20.0
+network 172.31.10.0
+no auto-sum
+do write
+
+
+!DYNAMIC ROUTE BANGOR
+router rip
+version 2
+network 172.31.40.0
+network 172.31.50.0
+no auto-sum
+do write
+
+
+!SETUP Boston Switch
+ena 
+conf t
+hostname SW-Bostn
+banner motd # Authorized access only! #
+line console 0
+password cisco
+login
+line vty 0 15
+password cisco
+login 
+exit
+enable secret class
+service password-encryption
+int vlan 1
+ip address 172.31.10.2 255.255.255.0
+no shutdown
+exit
+ip default-gateway 172.31.10.1
+do write
+
+
+!SETUP Buffalo Switch
+ena 
+conf t
+hostname SW-Buffalo
+banner motd # Authorized access only! #
+line console 0
+password cisco
+login
+line vty 0 15
+password cisco
+login 
+exit
+enable secret class
+service password-encryption
+int vlan 1
+ip address 172.31.30.2 255.255.255.0
+no shutdown
+exit
+ip default-gateway 172.31.30.1
+do write
+
+
+!SETUP Bangor Switch
+ena 
+conf t
+hostname SW-Bangor
+banner motd # Authorized access only! #
+line console 0
+password cisco
+login
+line vty 0 15
+password cisco
+login 
+exit
+enable secret class
+service password-encryption
+int vlan 1
+ip address 172.31.50.2 255.255.255.0
+no shutdown
+exit
+ip default-gateway 172.31.50.1
+do write

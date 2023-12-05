@@ -1,0 +1,37 @@
+!4-2 RIP
+!Ranet-HQ
+enable
+configure terminal
+interface Fastethernet 0/0
+ip address 98.83.165.65 255.255.255.248
+no shutdown
+interface Serial 0/0/0
+ip address 98.83.165.74 255.255.255.252
+no shutdown
+interface Serial 0/1/0
+ip address 52.9.236.22 255.255.255.252
+no shutdown
+exit
+ip route 0.0.0.0 0.0.0.0 Serial 0/1/0
+router rip
+version 2
+network 98.83.165.64
+no auto-summary
+do write
+
+!Ranet-BR
+enable
+configure terminal
+interface Fastethernet 0/0
+ip address 98.83.165.81 255.255.255.240
+no shutdown
+interface Serial 0/0/0
+ip address 98.83.165.73 255.255.255.252
+no shutdown
+exit
+ip route 0.0.0.0 0.0.0.0 Serial 0/0/0
+router rip
+version 2
+network 98.83.165.72
+no auto-summary
+do write

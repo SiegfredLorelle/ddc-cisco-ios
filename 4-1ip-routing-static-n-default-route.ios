@@ -1,0 +1,33 @@
+!4-1 Static Default Route
+!Ranet-BR
+enable
+configure terminal
+interface Fastethernet 0/0
+ip address 52.7.9.214 255.255.255.248
+no shutdown
+interface Serial 0/0/0
+ip address 52.7.9.222 255.255.255.252
+clock rate 64000
+no shutdown
+ip address 
+exit
+ip route 52.7.9.192 255.255.255.240 Serial 0/0/0
+ip route 0.0.0.0 0.0.0.0 Serial 0/0/0
+do write
+
+!Ranet-HQ
+enable 
+configure terminal
+interface Fastethernet 0/0
+ip address 52.7.9.206 255.255.255.240
+no shutdown
+interface Serial 0/0/0
+ip address 52.7.9.221 255.255.255.252
+no shutdown
+interface Serial 0/1/0
+ip address 77.7.7.254 255.255.255.252
+no shutdown
+exit
+ip route 52.7.9.208 255.255.255.248 Serial 0/0/0
+ip route 0.0.0.0 0.0.0.0 Serial 0/1/0
+do write

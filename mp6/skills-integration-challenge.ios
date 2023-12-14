@@ -1,0 +1,32 @@
+!R1
+enable
+configure terminal
+interface G 0/0
+ip address 172.16.10.1 255.255.255.192
+ipv6 address 2001:DB8:CAFE:1::1/64
+ipv6 address FE80::1 link-local
+no shutdown
+interface G 0/1
+ip address 172.16.10.65 255.255.255.192
+ipv6 address 2001:DB8:CAFE:2::1/64
+ipv6 address FE80::1 link-local
+no shutdown
+exit
+
+!S1
+enable
+configure terminal
+interface vlan 1
+ip address 172.16.10.62 255.255.255.192
+no shutdown
+exit
+ip default-gateway 172.16.10.1
+
+!S2
+enable
+configure terminal
+interface vlan 1
+ip address 172.16.10.126 255.255.255.192
+no shutdown
+exit
+ip default-gateway 172.16.10.65

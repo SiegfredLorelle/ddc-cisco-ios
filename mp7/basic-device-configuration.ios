@@ -1,0 +1,73 @@
+!College
+enable
+configure terminal
+hostname College
+banner motd # Do not access! #
+line console 0
+password cisco
+login
+line vty 0 15
+password cisco
+login
+exit
+enable secret class
+service password-encryption
+interface GigabitEthernet 0/0
+ip address 172.14.5.1 255.255.255.0
+ipv6 address 2001:DB8:CAFE:1::1/64
+ipv6 address FE80::1 link-local
+description Link to Class-A
+no shutdown
+interface GigabitEthernet 0/1
+ip address 172.14.10.1 255.255.255.0
+ipv6 address 2001:DB8:CAFE:2::1/64
+ipv6 address FE80::2 link-local
+description Link to Class-B
+no shutdown
+exit
+ipv6 unicast-routing
+do write
+
+
+!Class-B
+enable
+configure terminal
+hostname Class-B
+banner motd # Do not access! #
+line console 0
+password cisco
+login
+line vty 0 15
+password cisco
+login
+exit
+enable secret class
+service password-encryption
+interface Vlan 1
+ip address 172.14.10.35 255.255.255.0
+description Links to Class B
+no shutdown
+exit
+ip default-gateway 172.14.10.1
+do write
+
+!Student-1
+!default gateway: 172.14.5.1
+!ipv6 ip address: 2001:DB8:CAFE:1::50/64
+!ipv6 default gateway: FE80::1
+
+!Student-2
+!default gateway: 172.14.5.1
+!ipv6 ip address: 2001:DB8:CAFE:1::60/64
+!ipv6 default gateway: FE80::1
+
+!Student-3
+!default gateway: 172.14.10.1
+!ipv6 ip address: 2001:DB8:CAFE:2::50/64
+!ipv6 default gateway: FE80::2
+
+!Student-4
+!ip address: 172.14.10.60
+!default gateway: 172.14.10.1
+!ipv6 ip address: 2001:DB8:CAFE:2::60/64
+!ipv6 default gateway: FE80::2

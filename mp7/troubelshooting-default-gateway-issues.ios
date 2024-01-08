@@ -1,0 +1,21 @@
+!S2
+enable
+configure terminal
+interface vlan 1
+ip address 192.168.11.2 255.255.255.0
+no shutdown
+exit
+ip default-gateway 192.168.11.1
+do write
+
+!S1
+enable
+configure terminal
+ip default-gateway 192.168.10.1
+do write
+
+!PC1
+!ip address: 192.168.10.10
+
+!PC4
+!default gateway: 192.168.11.1

@@ -1,0 +1,38 @@
+!R1
+configure terminal
+interface gigabitEthernet 0/0
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+description LAN connection to S1
+configure terminal
+interface gigabitEthernet 0/1
+ip address 192.168.11.1 255.255.255.0
+no shutdown
+description LAN connection S2
+interface serial 0/0/0
+ip address 209.165.200.255 255.255.255.252
+no shutdown
+description LAN connection R2
+do write
+end
+copy running-config startup-config
+
+
+!R2
+configure terminal
+interface gigabitEthernet 0/0
+ip address 10.1.1.1 255.255.255.0
+no shutdown
+description LAN connection to S3
+configure terminal
+interface gigabitEthernet 0/1
+ip address 10.1.2.1 255.255.255.0
+no shutdown
+description LAN connection S4
+interface serial 0/0/0
+ip address 209.165.200.226 255.255.255.252
+no shutdown
+description LAN connection R1
+do write
+end
+copy running-config startup-config

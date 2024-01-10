@@ -1,0 +1,83 @@
+!HQ
+enable
+configure terminal
+interface GigabitEthernet 0/0
+ip address 192.168.203.129 255.255.255.240
+no shutdown
+interface GigabitEthernet 0/1
+ip address 192.168.203.97 255.255.255.224
+no shutdown
+interface Serial 0/0/0
+ip address 192.168.203.145 255.255.255.252
+no shutdown
+do write
+
+!HQ-2
+enable
+configure terminal
+interface vlan 1
+ip address 192.168.203.98 255.255.255.224
+no shutdown
+ip default-gateway 192.168.203.97
+do write
+
+!HQ-1
+enable
+configure terminal
+interface vlan 1
+ip address 192.168.203.130 255.255.255.240
+no shutdown
+ip default-gateway 192.168.203.129
+do write
+
+!Remote
+enable
+configure terminal
+interface GigabitEthernet 0/0
+ip address 192.168.203.65 255.255.255.224
+no shutdown
+interface GigabitEthernet 0/1
+ip address 192.168.203.1 255.255.255.192
+no shutdown
+interface Serial 0/0/0
+ip address 192.168.203.146 255.255.255.252
+no shutdown
+do write
+
+!Remote-2
+enable
+configure terminal
+interface vlan 1
+ip address 192.168.203.2 255.255.255.192
+no shutdown
+ip default-gateway 192.168.203.1
+do write
+
+!Remote-1
+enable
+configure terminal
+interface vlan 1
+ip address 192.168.203.66 255.255.255.224
+no shutdown
+ip default-gateway 192.168.203.65
+do write
+
+!WS145
+!ip address: 192.168.203.126
+!subnet mask: 255.255.255.224
+!default gateway: 192.168.203.97
+
+!WS116
+!ip address: 192.168.203.142
+!subnet mask: 255.255.255.240
+!default gateway: 192.168.203.129
+
+!WS234
+!ip address: 192.168.203.62
+!subnet mask: 255.255.255.192
+!default gateway: 192.168.203.1
+
+!WS203
+!ip address: 192.168.203.94
+!subnet mask: 255.255.255.224
+!default gateway: 192.168.203.65

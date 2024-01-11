@@ -1,0 +1,75 @@
+!CustomerRouter
+enable
+configure terminal
+hostname CustomerRouter
+banner motd # No unauthorized access! #
+line console 0
+password Cisco123
+login
+line vty 0 15
+password Cisco123
+login
+exit
+enable secret Class123
+service password-encryption
+interface G 0/0
+ip address 192.168.0.1 255.255.255.192
+no shutdown
+interface G 0/1
+ip address 192.168.0.65 255.255.255.192
+no shutdown
+interface S 0/1/0
+ip address 209.165.201.2 255.255.255.252
+no shutdown
+do write
+
+
+!LAN-A
+enable
+configure terminal
+hostname LAN-A
+banner motd # No unauthorized access! #
+line console 0
+password Cisco213
+login
+line vty 0 15
+password Cisco213
+login
+exit
+enable secret Class123
+service password-encryption
+ip default-gateway 192.168.0.1
+interface vlan 1
+ip address 192.168.0.2 255.255.255.192
+no shutdown
+do write
+
+!LAN-B
+enable
+configure terminal
+hostname LAN-B
+banner motd # No unauthorized access! #
+line console 0
+password Cisco213
+login
+line vty 0 15
+password Cisco213
+login
+exit
+enable secret Class123
+service password-encryption
+ip default-gateway 192.168.0.65
+interface vlan 1
+ip address 192.168.0.66 255.255.255.192
+no shutdown
+do write
+
+!PC-A
+!ip address: 192.168.0.62
+!subnet mask: 255.255.255.192
+!default gateway: 192.168.0.1
+
+!PC-B
+!ip address: 192.168.0.126
+!subnet mask: 255.255.255.192
+!default gateway: 192.168.0.65

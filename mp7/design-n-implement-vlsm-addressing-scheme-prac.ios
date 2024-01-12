@@ -1,0 +1,44 @@
+!Remote-Site1
+enable
+configure terminal
+hostname Remote-Site1
+banner motd # No unauthorize access! #
+line console 0
+password cisco
+login
+line vty 0 15
+password cisco
+login
+exit 
+enable secret class
+interface G 0/0
+ip address 192.168.72.129 255.255.255.240
+no shutdown
+interface G 0/1
+ip address 192.168.72.97 255.255.255.224
+no shutdown
+do write
+
+!Sw3
+enable
+configure terminal
+hostname Sw3
+banner motd # No unauthorize access! #
+line console 0
+password cisco
+login
+line vty 0 15
+password cisco
+login
+exit 
+enable secret class
+ip default-gateway 192.168.72.65
+interface VLAN 1
+ip address 192.168.72.66 255.255.255.224
+no shutdown
+do write
+
+!User-4
+!ip address: 192.168.72.62
+!subnet mask: 255.255.255.192
+!default gateway: 192.168.72.1

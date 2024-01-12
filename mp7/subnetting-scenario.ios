@@ -1,0 +1,46 @@
+!R1
+enable
+configure terminal
+hostname R1
+banner motd # No unauthorized access! #
+line console 0
+password cisco
+login
+line vty 0 15
+password cisco
+login
+exit
+enable secret class
+service password-encryption
+interface G 0/0
+ip address 192.168.100.1 255.255.255.224
+no shutdown
+interface G 0/1
+ip address 192.168.100.33 255.255.255.224
+no shutdown
+do write
+
+!S3
+enable
+configure terminal
+hostname S3
+banner motd # No unauthorized access! #
+line console 0
+password cisco
+login
+line vty 0 15
+password cisco
+login
+exit
+enable secret class
+service password-encryption
+ip default-gateway 192.168.100.65
+interface VLAN 1
+ip address 192.168.100.66 255.255.255.224
+no shutdown
+do write
+
+!PC4
+!ip address: 192.168.100.126
+!subnet mask: 255.255.255.224
+!default gateway: 192.168.100.97

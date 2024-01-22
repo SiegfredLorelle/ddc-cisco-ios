@@ -1,0 +1,349 @@
+!ISP
+enable
+configure terminal
+hostname ISP
+banner motd #WELCOME TO NETWORKING. STUDY HARD AND PERSEVERE!#
+no service password-encryption
+no ip domain lookup
+enable password 12/25/2002
+enable secret 202105794MN0
+line console 0
+password siegfredlorelle
+logging synchronous
+login
+line vty 0 15
+password mina
+login
+exit
+ip route 10.0.0.0 255.0.0.0 Serial 0/0
+ip route 172.16.0.0 255.255.0.0 Serial 0/0
+ip route 192.168.1.0 255.255.255.0 Serial 0/0
+interface Serial 0/0
+ip address 192.168.0.62 255.255.255.224
+clock rate 64000
+no shutdown
+interface FastEthernet 0/0
+ip address 205.205.205.1 255.255.255.0
+no shutdown
+do write
+
+
+
+!HQ
+enable
+configure terminal
+hostname HQ
+banner motd #WELCOME TO NETWORKING. STUDY HARD AND PERSEVERE!#
+no service password-encryption
+no ip domain lookup
+enable password 12/25/2002
+enable secret 202105794MN0
+line console 0
+password siegfredlorelle
+logging synchronous
+login
+line vty 0 15
+password mina
+login
+exit
+ip route 0.0.0.0 0.0.0.0 192.168.0.62
+interface Serial 0/0
+ip address 192.168.0.33 255.255.255.224
+clock rate 64000
+no shutdown
+interface Serial 0/1
+ip address 192.168.0.65 255.255.255.224
+clock rate 64000
+no shutdown
+interface Serial 0/2
+ip address 192.168.0.97 255.255.255.224
+clock rate 64000
+no shutdown
+interface Serial 0/3
+ip address 192.168.0.129 255.255.255.224
+clock rate 64000
+no shutdown
+interface FastEthernet 0/0
+ip address 192.168.0.193 255.255.255.224
+no shutdown
+exit
+exit
+copy run start
+
+copy run tftp
+192.168.0.196
+HQ
+
+
+
+!R1
+enable
+configure terminal
+hostname R1
+banner motd #WELCOME TO NETWORKING. STUDY HARD AND PERSEVERE!#
+no service password-encryption
+no ip domain lookup
+enable password 12/25/2002
+enable secret 202105794MN0
+line console 0
+password siegfredlorelle
+logging synchronous
+login
+line vty 0 15
+password mina
+login
+exit
+ip route 192.168.0.192 255.255.255.224 192.168.0.65
+interface Serial 0/0
+ip address 192.168.0.94 255.255.255.224
+clock rate 64000
+no shutdown
+interface FastEthernet 0/0
+ip address 10.16.0.1 255.248.0.0
+no shutdown
+interface FastEthernet 0/1
+ip address 10.48.0.1 255.248.0.0
+no shutdown
+interface FastEthernet 1/0
+ip address 10.88.0.1 255.248.0.0
+no shutdown
+interface FastEthernet 1/1
+ip address 10.152.0.1 255.248.0.0
+no shutdown
+exit
+exit
+copy run start
+
+copy run tftp
+192.168.0.196
+R1
+
+
+
+!R2
+enable
+configure terminal
+hostname R2
+banner motd #WELCOME TO NETWORKING. STUDY HARD AND PERSEVERE!#
+no ip domain lookup
+no service password-encryption
+enable password 12/25/2002
+enable secret 202105794MN0
+line console 0
+password siegfredlorelle
+logging synchronous
+login
+line vty 0 15
+password mina
+login
+exit
+ip route 192.168.0.192 255.255.255.224 192.168.0.97
+interface Serial 0/0
+ip address 192.168.0.126 255.255.255.224
+clock rate 64000
+no shutdown
+interface FastEthernet 0/0
+ip address 172.16.16.1 255.255.240.0
+no shutdown
+interface FastEthernet 0/1
+ip address 172.16.64.1 255.255.240.0
+no shutdown
+interface FastEthernet 1/0
+ip address 172.16.128.1 255.255.240.0
+no shutdown
+interface FastEthernet 1/1
+ip address 172.16.192.1 255.255.240.0
+no shutdown
+exit
+exit
+copy run start
+
+copy run tftp
+192.168.0.196
+R2
+
+
+
+!R3
+enable
+configure terminal
+no service password-encryption
+hostname R3
+banner motd #WELCOME TO NETWORKING. STUDY HARD AND PERSEVERE!#
+no ip domain lookup
+enable password 12/25/2002
+enable secret 202105794MN0
+line console 0
+password siegfredlorelle
+logging synchronous
+login
+line vty 0 15
+password mina
+login
+exit
+ip route 192.168.0.192 255.255.255.224 192.168.0.129
+interface Serial 0/0
+ip address 192.168.0.158 255.255.255.224
+clock rate 64000
+no shutdown
+interface FastEthernet 0/0
+ip address 192.168.1.1 255.255.255.192
+no shutdown
+interface FastEthernet 0/1
+ip address 192.168.1.65 255.255.255.192
+no shutdown
+interface FastEthernet 1/0
+ip address 192.168.1.129 255.255.255.192
+no shutdown
+interface FastEthernet 1/1
+ip address 192.168.1.193 255.255.255.192
+no shutdown
+exit
+exit
+copy run start
+
+copy run tftp
+192.168.0.196
+R3
+
+
+!DHCP/TFTP
+!ip address: 192.168.0.196
+!subnet mask: 255.255.255.224
+!default gateway: 192.168.0.193
+
+! pool name: R1B_LAN
+! default gatway: 10.48.0.1
+! start ip: 10.48.0.11
+! subnet mask:255.248.0.0
+! maximum number of users: 200
+
+! pool name: R1C_LAN
+! default gatway: 10.88.0.1
+! start ip: 10.88.0.11
+! subnet mask: 255.248.0.0
+! maximum number of users: 200
+
+! pool name: R2A_LAN
+! default gatway: 172.16.16.1
+! start ip: 172.16.16.11
+! subnet mask: 255.255.240.0
+! maximum number of users: 100
+
+! pool name: R2C_LAN
+! default gatway: 172.16.128.1
+! start ip: 172.16.128.11
+! subnet mask: 255.255.240.0
+! maximum number of users: 100
+
+! pool name: R3A_LAN
+! default gatway: 192.168.1.1
+! start ip: 192.168.1.11
+! subnet mask: 255.255.255.192
+! maximum number of users: 50
+
+! pool name: R3B_LAN
+! default gatway: 192.168.1.65
+! start ip: 192.168.1.75
+! subnet mask: 255.255.255.192
+! maximum number of users: 50
+
+
+
+!DNS
+!ip address: 192.168.0.195
+!subnet mask: 255.255.255.224
+!default gateway: 192.168.0.193
+!addresses:
+! - www.ama.com - 205.205.205.254
+! - www.fb.com - 205.205.2
+
+!PC1_R1A
+!ip address: 10.23.255.254
+!subnet mask: 255.248.0.0
+!default gateway: 10.16.0.1
+!dns server: 192.168.0.195
+
+PC1_R1B
+!ip address: 10.55.255.254
+!subnet mask: 255.248.0.0
+!default gateway: 10.48.0.1
+!dns server: 192.168.0.195
+
+PC1_R1C
+!ip address: 10.95.255.254
+!subnet mask: 255.248.0.0
+!default gateway: 10.88.0.1
+!dns server: 192.168.0.195
+
+PC1_R1D
+!ip address: 10.95.255.254 
+!subnet mask: 255.248.0.0
+!default gateway: 10.152.0.1
+!dns server: 192.168.0.195
+
+PC1_R2A
+!ip address: 172.16.31.254
+!subnet mask: 255.255.240.0
+!default gateway: 172.16.16.1
+!dns server: 192.168.0.195
+
+PC1_R2B
+!ip address: 172.16.79.254
+!subnet mask: 255.255.240.0
+!default gateway: 172.16.64.1
+!dns server: 192.168.0.195
+
+PC1_R2C
+!ip address: 172.16.143.254
+!subnet mask: 255.255.240.0
+!default gateway: 172.16.128.1
+!dns server: 192.168.0.195
+
+PC1_R2D
+!ip address: 172.16.207.254
+!subnet mask: 255.255.240.0
+!default gateway: 172.16.192.1
+!dns server: 192.168.0.195
+
+PC1_R3A
+!ip address: 192.168.1.62
+!subnet mask: 255.255.255.192
+!default gateway: 192.168.1.1
+!dns server: 192.168.0.195
+
+PC1_R3B
+!ip address: 192.168.1.126
+!subnet mask: 255.255.255.192
+!default gateway: 192.168.1.65
+!dns server: 192.168.0.195
+
+PC1_R3C
+!ip address: 192.168.1.190
+!subnet mask: 255.255.255.192
+!default gateway: 192.168.1.129
+!dns server: 192.168.0.195
+
+PC1_R3D
+!ip address: 192.168.1.254
+!subnet mask: 255.255.255.192
+!default gateway: 192.168.1.193
+!dns server: 192.168.0.195
+
+!ADMIN
+!ip address: 192.168.0.194
+!subnet mask: 255.255.255.224
+!default gateway: 192.168.0.193
+!dns server: 192.168.0.195
+
+!AMA
+!ip address: 205.205.205.254
+!subnet mask: 255.255.255.0
+!default gateway: 205.205.205.1
+!dns server: 192.168.0.195
+
+!PR_HQ
+!ip address: 192.168.255.254
+!subnet mask: 255.255.255.192
+!default gateway: 192.168.0.193
+!dns server: 192.168.0.195

@@ -1,0 +1,209 @@
+!ISP
+enable
+configure terminal
+ip route 172.16.64.0 255.255.224.0 Serial 0/0/0
+ip route 172.16.96.0 255.255.252.0 Serial 0/0/0
+ip route 172.16.0.0 255.255.192.0 Serial 0/0/0
+do write
+
+
+
+!CISCOHQ
+enable
+configure terminal
+hostname CISCOHQ
+banner motd #LEARN AS MUCH AS YOU CAN CISCO1 STUDENTS!!!#
+no ip domain lookup
+ip domain-name CISCOHQ
+service password-encrypt
+enable secret vlsm
+crypto key generate rsa
+768
+ip ssh version 2
+ip route 0.0.0.0 0.0.0.0 200.200.200.6
+router rip
+version 2
+network 172.16.64.0
+network 172.16.96.0
+network 172.16.0.0
+default-information originate
+no auto-summary
+line console 0
+logging synchronous
+password cisco1
+login
+line vty 0 15
+transport input ssh
+password cisco1
+login
+interface Serial 0/0/0
+clock rate 64000
+ip address 172.16.100.65 255.255.255.252
+no shutdown
+interface Serial 0/0/1
+clock rate 64000
+ip address 172.16.100.69 255.255.255.252
+no shutdown
+interface Serial 0/1/0
+clock rate 64000
+ip address 172.16.100.73 255.255.255.252
+no shutdown
+interface Serial 0/1/1
+ip address 200.200.200.1 255.255.255.248
+no shutdown
+interface FastEthernet0/0
+ip address 172.16.100.1 255.255.255.192
+no shutdown
+do write
+exit
+exit
+copy running-config tftp
+172.16.100.4
+CISCOHQ
+	
+
+
+
+!CISCOA
+enable
+configure terminal
+hostname CISCOA
+banner motd #LEARN AS MUCH AS YOU CAN CISCO1 STUDENTS!!!#
+no ip domain lookup
+service password-encrypt
+enable secret vlsm
+router rip
+version 2
+network 172.16.100.0
+no auto-summary
+line console 0
+logging synchronous
+password cisco1
+login
+line vty 0 15
+password cisco1
+login
+interface Serial 0/0/0
+clock rate 64000
+ip address 172.16.100.66 255.255.255.252
+no shutdown
+interface FastEthernet0/0
+ip address 172.16.64.1 255.255.224.0
+ip helper-address 172.16.100.2
+no shutdown
+do write
+
+!CISCOB
+enable
+configure terminal
+hostname CISCOB
+banner motd #LEARN AS MUCH AS YOU CAN CISCO1 STUDENTS!!!#
+no ip domain lookup
+service password-encrypt
+enable secret vlsm
+router rip
+version 2
+network 172.16.100.0
+no auto-summary
+line console 0
+logging synchronous
+password cisco1
+login
+line vty 0 15
+password cisco1
+login
+interface Serial 0/0/0
+clock rate 64000
+ip address 172.16.100.70 255.255.255.252
+no shutdown
+interface FastEthernet0/0
+ip address 172.16.96.1 255.255.252.0
+ip helper-address 172.16.100.2
+no shutdown
+do write
+
+
+!CISCOACAD
+enable
+configure terminal
+hostname CISCOACAD
+banner motd #LEARN AS MUCH AS YOU CAN CISCO1 STUDENTS!!!#
+no ip domain lookup
+service password-encrypt
+enable secret vlsm
+router rip
+version 2
+network 172.16.100.0
+line console 0
+logging synchronous
+password cisco1
+login
+line vty 0 15
+password cisco1
+login
+interface Serial 0/0/0
+clock rate 64000
+ip address 172.16.100.74 255.255.255.252
+no shutdown
+interface FastEthernet0/0
+ip address 172.16.0.1 255.255.192.0
+ip helper-address 172.16.100.2
+no shutdown
+do write
+
+!DHCP
+ip address: 172.16.100.2
+subnet mask: 255.255.255.192
+default gateway: 172.16.100.1
+dns server: 172.16.100.3
+
+!pool name: CISCOB_LAN
+!default gateway: 172.16.96.1
+!stat ip: 172.16.96.10
+!subnet mask: 255.255.252.0
+!max num of users: 1000	
+
+!pool name: CISCOACAD_LAN
+!default gateway: 172.16.0.1
+!stat ip: 172.16.0.10
+!subnet mask: 255.255.192.0
+!max num of users: 1000	
+
+!DNS
+ip address: 172.16.100.3
+subnet mask: 255.255.255.192
+default gateway: 172.16.100.1
+dns server: 172.16.100.3
+
+!dns name: www.facebook.com
+!address: 205.205.205.152
+
+!TFTP
+ip address: 172.16.100.4
+subnet mask: 255.255.255.192
+default gateway: 172.16.100.1
+dns server: 172.16.100.3
+
+!ADMIN
+ip address: 172.16.100.62
+subnet mask: 255.255.255.192
+default gateway: 172.16.100.1
+dns server: 172.16.100.3
+
+!LaptopA
+ip address: 172.16.95.254
+subnet mask: 255.255.224.0
+default gateway: 172.16.64.1
+dns server: 172.16.100.3
+
+!LaptopB
+ip address: 172.16.99.254
+subnet mask: 255.255.252.0
+default gateway: 172.16.96.1
+dns server: 172.16.100.3
+
+!LaptopACAD
+ip address: 172.16.63.254
+subnet mask: 255.255.192.0
+default gateway: 172.16.0.1
+dns server: 172.16.100.3

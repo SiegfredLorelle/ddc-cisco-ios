@@ -1,0 +1,16 @@
+!RTR-3
+enable
+show ip interface brief
+configure terminal
+interface G0/0/1
+ipv6 address 2001:db8:5::1/64
+no shutdown
+do write
+
+!PC4
+!default gateway: 10.10.5.1
+
+!Server1
+!ip address: 10.10.5.20
+!subnet mask: 255.255.255.0
+!default gateway: 10.10.5.1

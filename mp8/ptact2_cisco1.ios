@@ -256,7 +256,7 @@ R3
 !default gateway: 192.168.0.193
 !addresses:
 ! - www.ama.com - 205.205.205.254
-! - www.fb.com - 205.205.2
+! - www.fb.com - 205.205.205.2
 
 !PC1_R1A
 !ip address: 10.23.255.254

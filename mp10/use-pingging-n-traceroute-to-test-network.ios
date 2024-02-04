@@ -1,0 +1,25 @@
+!R1
+enable
+show ip interface brief
+show ip route
+
+!R3
+enable
+show ip interface brief
+show ip route
+show ipv6 interface brief
+no shutdown
+do write
+
+
+!R2
+enable
+show ip interface brief
+configure terminal
+interface Serial 0/0/0
+ip address 10.10.1.5 255.255.255.252
+no shutdown
+do write
+
+!PC4
+!defualt gateway: FE80::3

@@ -1,0 +1,273 @@
+!FINAL
+enable
+configure terminal
+hostname FINAL
+banner motd #Welcome to Final Lab Skills Exam! Good luck!#
+line console 0
+password siegfredlorelle
+login
+line vty 0 15
+password camus
+login
+exit
+enable secret mina
+no ip domain lookup
+service password-encryption
+ip route 172.31.36.0 255.255.192.0 Serial 0/0/0
+ip route 172.31.132.0 255.255.255.0 Serial 0/0/0
+ip route 172.31.133.0 255.255.255.240 Serial 0/0/0
+ip route 172.31.133.20 255.255.255.252 Serial 0/0/0
+ip route 172.31.133.24 255.255.255.252 Serial 0/0/0
+router rip
+version 2
+network 172.31.133.16
+no auto-summary
+network 172.31.100.0
+no auto-summary
+router eigrp 1
+network 172.31.133.16 0.0.0.3
+network 172.31.100.0 0.0.31.255
+no auto-summary
+router ospf 1
+network 172.31.133.16 0.0.0.3 area 0
+network 172.31.100.0 0.0.0.31 area 0
+ip route 0.0.0.0 0.0.0.0 Serial 0/0/0
+interface Serial 0/0/0
+ip address 172.31.133.17 255.255.255.252
+no shutdown
+clock rate 128000
+interface FastEthernet 0/0 
+ip address 172.31.100.1 255.255.224.0
+no shutdown
+do write
+
+!LAB
+enable
+configure terminal
+hostname LAB
+banner motd #Welcome to Final Lab Skills Exam! Good luck!#
+line console 0
+password siegfredlorelle
+login
+line vty 0 15
+password camus
+login
+exit
+enable secret mina
+no ip domain lookup
+service password-encryption
+ip route 172.31.100.0 255.255.224.0 Serial 0/0/0
+ip route 172.31.132.0 255.255.255.0 Serial 0/0/0
+ip route 172.31.133.0 255.255.255.240 Serial 0/0/0
+ip route 172.31.133.24 255.255.255.252 Serial 0/0/0
+ip route 0.0.0.0 0.0.0.0 Serial 0/0/0
+router rip
+version 2
+network 172.31.133.16
+no auto-summary
+network 172.31.133.20
+no auto-summary
+network 172.31.36.0
+no auto-summary
+router eigrp 1
+network 172.31.133.16 0.0.0.3
+network 172.31.133.20 0.0.0.3
+network 172.31.133.20 0.0.63.255
+no auto-sum
+router ospf 1
+network 172.31.133.16 0.0.0.3 area 0
+network 172.31.133.20 0.0.0.3 area 0
+network 172.31.133.20 0.0.63.255 area 0
+interface Serial 0/0/1
+ip address 172.31.133.18 255.255.255.252
+clock rate 128000
+no shutdown
+interface Serial 0/0/0
+ip address 172.31.133.21 255.255.255.252
+clock rate 128000
+no shutdown
+interface FastEthernet 0/0
+ip address 172.31.36.1 255.255.192.0
+no shutdown
+do write
+
+
+!SKILLS
+enable
+configure terminal
+hostname SKILLS
+banner motd #Welcome to Final Lab Skills Exam! Good luck!#
+line console 0
+password siegfredlorelle
+login
+line vty 0 15
+password camus
+login
+exit
+enable secret mina
+no ip domain lookup
+service password-encryption
+ip route 172.31.100.0 255.255.224.0 Serial 0/0/0
+ip route 172.31.36.0 255.255.192.0 Serial 0/0/0
+ip route 172.31.133.0 255.255.255.240 Serial 0/0/0
+ip route 172.31.133.24 255.255.255.252 Serial 0/0/0
+ip route 0.0.0.0 0.0.0.0 Serial 0/0/0
+router rip
+version 2
+network 172.31.133.21
+no auto-summary
+network 172.31.133.24
+no auto-summary
+network 172.31.132.0
+no auto-summary
+router eigrp 1
+network 172.31.133.21 0.0.0.3
+network 172.31.133.24 0.0.0.3
+network 172.31.132.0 0.0.123.255
+no auto-sum
+router ospf 1
+network 172.31.133.21 0.0.0.3 area 0
+network 172.31.133.24 0.0.0.3 area 0 
+network 172.31.132.0 0.0.123.255 area 0
+interface Serial 0/0/1
+ip address 172.31.133.22 255.255.255.252
+clock rate 128000
+no shutdown
+interface Serial 0/0/0
+ip address 172.31.133.25 255.255.255.252
+clock rate 128000
+no shutdown
+interface FastEthernet 0/0
+ip address 172.31.132.1 255.255.255.0
+no shutdown
+do write
+
+!EXAM
+enable
+configure terminal
+hostname EXAM
+banner motd #Welcome to Final Lab Skills Exam! Good luck!#
+line console 0
+password siegfredlorelle
+login
+line vty 0 15
+password camus
+login
+exit
+enable secret mina
+no ip domain lookup
+service password-encryption
+ip route 172.31.100.0 255.255.224.0 Serial 0/0/0
+ip route 172.31.36.0 255.255.192.0 Serial 0/0/0
+ip route 172.31.132.0 255.255.224.0 Serial 0/0/0
+ip route 172.31.133.16 255.255.255.252 Serial 0/0/0
+ip route 172.31.133.20 255.255.255.252 Serial 0/0/0
+ip route 0.0.0.0 0.0.0.0 Serial 0/0/0
+router rip
+version 2
+network 172.31.133.26
+no auto-summary
+network 172.31.133.0
+no auto-summary
+router eigrp 1
+network 172.31.133.26 0.0.0.3
+network 172.31.133.0 0.0.0.15
+no auto-sum
+router ospf 1
+network 172.31.133.21 0.0.0.3 area 0
+network 172.31.133.24 0.0.0.3 area 0 
+interface Serial 0/0/1
+ip address 172.31.133.26 255.255.255.252
+clock rate 128000
+no shutdown
+interface FastEthernet 0/0
+ip address 172.31.133.1 255.255.255.240
+no shutdown
+do write
+
+
+!MANILA
+enable 
+configure terminal
+hostname MANILA
+banner motd #Welcome to Final Lab Skills Exam! Good luck!#
+line console 0
+password siegfredlorelle
+login
+line vty 0 15
+password camus
+login
+exit
+enable secret mina
+service password-encryption
+int vlan 1
+ip address 172.31.100.2 255.255.224.0
+no shutdown
+exit
+ip default-gateway 172.31.100.1
+do write
+
+
+!CAVITE
+enable 
+configure terminal
+hostname CAVITE
+banner motd #Welcome to Final Lab Skills Exam! Good luck!#
+line console 0
+password siegfredlorelle
+login
+line vty 0 15
+password camus
+login
+exit
+enable secret mina
+service password-encryption
+int vlan 1
+ip address 172.31.36.2 255.255.192.0
+no shutdown
+exit
+ip default-gateway 172.31.36.1
+do write
+
+
+!CEBU
+enable 
+configure terminal
+hostname CEBU
+banner motd #Welcome to Final Lab Skills Exam! Good luck!#
+line console 0
+password siegfredlorelle
+login
+line vty 0 15
+password camus
+login
+exit
+enable secret mina
+service password-encryption
+int vlan 1
+ip address 172.31.132.2 255.255.255.0
+no shutdown
+exit
+ip default-gateway 172.31.132.1
+do write
+
+!DAVAO
+enable 
+configure terminal
+hostname DAVAO
+banner motd #Welcome to Final Lab Skills Exam! Good luck!#
+line console 0
+password siegfredlorelle
+login
+line vty 0 15
+password camus
+login
+exit
+enable secret mina
+service password-encryption
+int vlan 1
+ip address 172.31.133.2 255.255.255.240
+no shutdown
+exit
+ip default-gateway 172.31.133.1
+do write

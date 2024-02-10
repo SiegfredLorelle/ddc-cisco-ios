@@ -1,0 +1,47 @@
+!RTR-A
+enable 
+configure terminal
+hostname RTR-A
+banner motd #No Unauthorized Access!#
+service password-encryption
+enable secret @Cons1234!
+username NETadmin secret LogAdmin!9
+ip domain-name security.com
+login block-for 45 attempts 3 within 100
+security passwords min-length 10
+no ip domain lookup
+line console 0
+exec-timeout 7 0
+password @Cons1234!
+login
+line vty 0 15
+password @Cons1234!
+exec-timeout 7 0
+transport input ssh
+login local
+crypto key generate rsa
+1024
+do write
+
+!SW-1
+enable 
+configure terminal
+hostname SW-1
+service password-encryption
+enable secret @Cons1234!
+username NETadmin secret LogAdmin!9
+ip domain-name security.com
+ip default-gateway 192.168.1.1
+line vty 0 15
+password @Cons1234!
+exec-timeout 7 0
+transport input ssh
+login local
+interface vlan 1
+ip address 192.168.1.254 255.255.255.0
+no shutdown
+interface range FastEthernet0/1-24, GigabitEthernet0/1-2
+shutdown
+crypto key generate rsa
+1024
+do write

@@ -1,0 +1,25 @@
+!S2
+enable 
+configure terminal
+interface vlan 1
+ip address 172.16.1.125 255.255.255.192
+no shutdown
+do write
+
+!R1
+enable 
+configure terminal
+username Admin1 secret Admin1pa55
+line vty 0 15
+transport input ssh
+interface G0/1
+ip address 172.16.1.126 255.255.255.192
+no shutdown
+do write
+
+!IT
+!ip address: 172.16.1.1
+!default gateway: 172.16.1.62
+
+!R&D
+!ipv6 address: 2001:db8:cafe:2::2

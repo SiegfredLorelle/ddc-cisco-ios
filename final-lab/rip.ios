@@ -1,0 +1,38 @@
+!ISP-BR
+enable
+configure terminal
+router rip
+version 2
+network 98.83.165.72
+network 98.83.165.80
+no auto-summary
+ip route 0.0.0.0 0.0.0.0 S0/0/0
+interface S0/0/0
+ip address 98.83.165.73 255.255.255.252
+clock rate 64000
+no shutdown
+interface Fa0/0
+ip address 98.83.165.81 255.255.255.240
+no shutdown
+do write
+
+!RANET-HQ
+enable
+configure terminal
+router rip
+version 2
+network 98.83.165.72
+network 52.9.236.20
+network 8.83.165.64
+no auto-summary
+ip route 0.0.0.0 0.0.0.0 S0/1/0
+interface S0/0/0
+ip address 98.83.165.74 255.255.255.252
+no shutdown
+interface S0/1/0
+ip address 52.9.236.22 255.255.255.252
+no shutdown
+interface Fa0/0
+ip address 98.83.165.65 255.255.255.248
+no shutdown
+do write

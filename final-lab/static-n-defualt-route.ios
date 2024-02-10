@@ -1,0 +1,30 @@
+!ISP-BR
+enable
+configure terminal
+ip route 52.7.9.192 255.255.255.240 S0/0/0
+ip route 77.7.7.252 255.255.255.252 S0/0/0
+ip route 0.0.0.0 0.0.0.0 S0/0/0
+interface S0/0/0
+ip address 52.7.9.222 255.255.255.252
+clock rate 64000
+no shutdown
+interface Fa0/0
+ip address 52.7.9.214 255.255.255.248
+no shutdown
+do write
+
+!RANET-HQ
+enable
+configure terminal
+ip route 52.7.9.208 255.255.255.248 S0/0/0
+ip route 0.0.0.0 0.0.0.0 S0/1/0
+interface S0/0/0
+ip address 52.7.9.221 255.255.255.252
+no shutdown
+interface S0/1/0
+ip address 77.7.7.254 255.255.255.252
+no shutdown
+interface Fa0/0
+ip address 52.7.9.206 255.255.255.240
+no shutdown
+do write

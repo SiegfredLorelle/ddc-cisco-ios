@@ -1,0 +1,39 @@
+!ISP-BR
+enable
+configure terminal
+ip route 0.0.0.0 0.0.0.0 S0/0/0
+router ospf 100
+network 128.0.6.156 0.0.0.3 area 0
+network 128.0.6.144 0.0.0.7 area 0
+interface S0/0/0
+ip address 128.0.6.158 255.255.255.252
+clock rate 64000
+no shutdown
+interface Fa0/0
+ip address 128.0.6.150 255.255.255.248
+no shutdown
+interface loopback 0
+ip address 1.1.1.1 255.255.255.0
+no shutdown
+do write
+
+!RANET-HQ
+enable
+configure terminal
+ip route 0.0.0.0 0.0.0.0 S0/1/0
+router ospf 1
+network 128.0.6.156 0.0.0.3 area 0
+network 128.0.6.92 0.0.0.3 area 0
+network 128.0.6.128 0.0.0.15 area 0
+interface S0/0/0
+ip address 128.0.6.157 255.255.255.252
+no shutdown
+interface S0/1/0
+ip address 128.0.6.94 255.255.255.252
+no shutdown
+interface Fa0/0
+ip address 128.0.6.142 255.255.255.240
+no shutdown
+interface loopback 0
+ip address 1.1.0.1 255.255.255.0
+do write

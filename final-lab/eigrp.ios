@@ -1,0 +1,36 @@
+!ISP-BR
+enable
+configure terminal
+ip route 0.0.0.0 0.0.0.0 S0/0/0
+router eigrp 10110
+network 5.88.192.56 0.0.0.7
+network 5.88.192.32 0.0.0.15
+no auto-summary
+interface S0/0/0
+ip address 5.88.192.62 255.255.255.248
+clock rate 64000
+no shutdown
+interface Fa0/0
+ip address 5.88.192.46 255.255.255.240
+no shutdown
+do write
+
+!RANET-HQ
+enable
+configure terminal
+ip route 0.0.0.0 0.0.0.0 S0/1/0
+router eigrp 10110
+network 5.88.192.56 0.0.0.7
+network 5.88.192.224 0.0.0.3
+network 5.88.192.48 0.0.0.7
+no auto-summary
+interface S0/0/0
+ip address 5.88.192.57 255.255.255.248
+no shutdown
+interface S0/1/0
+ip address 5.88.192.226 255.255.255.252
+no shutdown
+interface Fa0/0
+ip address 5.88.192.54 255.255.255.248
+no shutdown
+do write

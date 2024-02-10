@@ -1,0 +1,10 @@
+!R1 (connect via SSH using PC-01)
+!hostname or ip: 172.16.1.1
+!username: Admin01
+
+enable
+configure terminal
+interface G0/1
+ip address 172.16.2.1 255.255.255.0
+no shutdown
+do write
